@@ -1,4 +1,4 @@
-# divcards
+# DIVCARDS
 
 Aplicacao web de flashcards com interface interativa para estudo de palavras, descricoes e casos de uso. O projeto consome uma API externa, organiza os cards em pilha animada e permite navegar entre eles diretamente pela interface.
 
@@ -94,9 +94,35 @@ https://pagespeed.web.dev/analysis/https-divcards-vercel-app/pjk7xbpyra?form_fac
 
 - Performance: 100/100
 
-### Observacao
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/4f9a057c-4773-4329-be7d-fa432de00330" />
 
-O relatorio compartilhado nao apresentou valor de INP nesse teste laboratorial. Ainda assim, LCP e CLS foram registrados com desempenho excelente no ambiente desktop analisado.
+### Desempenho
+
+<img width="967" height="638" alt="image" src="https://github.com/user-attachments/assets/31aad49b-51f5-46e5-9647-203456eba0fe" />
+
+- FCP: Marca o momento em que o primeiro texto ou imagem é disponibilizado.
+- LCP: Marca o momento em que o maior texto ou imagem é exibido.
+- TBT: Marca o tempo total em que uma página fica bloqueada para responder à entrada do usuário (cliques, toques na tela ou etc.).
+- CLS: Marca o movimento de elementos visíveis na janela de visualização.
+- SI: Marca a rapidez com que o conteúdo de uma página é preenchido visivelmente.
+
+### Acessibilllidade
+
+<img width="968" height="675" alt="image" src="https://github.com/user-attachments/assets/29227806-6553-4fd5-a8cd-5eb12fda7e45" />
+
+A pontuação de acessibilidade do Lighthouse é uma média ponderada de todas as auditorias de acessibilidade. Por exemplo, se alguns botões em uma página tiverem nomes acessíveis, mas outros não, a página vai receber 0 na auditoria "Os botões não têm um nome acessível".
+
+### Práticas recomendadas
+
+<img width="966" height="793" alt="image" src="https://github.com/user-attachments/assets/44a76f29-ce45-4c9f-8fe6-df8153851341" />
+
+A pontuação de práticas recomendadas do Lighthouse marca se o site utiliza tecnicas para proteger a integridade e segurança do site, evita bibliotecas antigas com vulnerabilidades conhecidas, evita erros no console, evita cookies de terceiros, etc.
+
+### SEO
+
+<img width="970" height="721" alt="image" src="https://github.com/user-attachments/assets/e7e26179-b8bb-4619-a536-8ecae054b858" />
+
+A pontuação de SEO recomendadas do Lighthouse garantem que sua página siga orientações básicas para otimização de mecanismos de pesquisa.
 
 ## Como realizar o deploy
 
