@@ -82,6 +82,22 @@ https://fiap-bff-2502.onrender.com/ask
 
 Caso a API fique indisponivel ou retorne um formato invalido, a aplicacao exibe uma mensagem de erro na interface.
 
+## Metricas Lighthouse e Web Vitals
+
+As metricas abaixo foram extraidas do relatorio Lighthouse desktop publicado em 13 de marco de 2026, a partir do link:
+
+```text
+https://pagespeed.web.dev/analysis/https-divcards-vercel-app/pjk7xbpyra?form_factor=desktop
+```
+
+### Resultado geral
+
+- Performance: 100/100
+
+### Observacao
+
+O relatorio compartilhado nao apresentou valor de INP nesse teste laboratorial. Ainda assim, LCP e CLS foram registrados com desempenho excelente no ambiente desktop analisado.
+
 ## Como realizar o deploy
 
 Como este projeto utiliza Vite, o deploy e estatico. Isso significa que o processo de publicacao consiste em gerar a build e hospedar o conteudo da pasta `dist/` em um servico de hospedagem front-end.
