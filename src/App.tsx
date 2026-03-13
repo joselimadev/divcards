@@ -175,7 +175,7 @@ function App() {
                   );
                 })}
             </div>
-            <div className="flex items-center justify-between rounded-full border border-white/10 bg-white/5 px-6 py-3 backdrop-blur-md">
+            <div className="flex items-center justify-between rounded-full border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md">
               <div className="flex items-center gap-2">
                 <label className="sr-only" htmlFor="theme-select">
                   Selecione um tema
