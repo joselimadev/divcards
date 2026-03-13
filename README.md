@@ -9,6 +9,13 @@ Aplicacao web de flashcards com interface interativa para estudo de palavras, de
 - Luis Felipe dos Santos Robbo
 - Luis Henrique Secundes
 
+## Links dos projetos
+
+- Repositorio do projeto Front: https://github.com/divcards/divcards
+- URL do projeto Front: https://divcards.vercel.app/
+- Repositorio da API: https://github.com/divcards/divcards-api
+- URL da API: https://divcards-api.vercel.app/
+
 ## Finalidade do projeto
 
 O objetivo do `divcards` e oferecer uma experiencia simples de estudo com flashcards, exibindo termos, descricoes e exemplos de uso em um layout visual moderno. A aplicacao busca os dados de uma API remota e atualiza o deck exibido para o usuario.
@@ -77,7 +84,7 @@ src/
 Atualmente, os flashcards sao carregados a partir do endpoint:
 
 ```text
-https://fiap-bff-2502.onrender.com/ask
+https://divcards-api.vercel.app/
 ```
 
 Caso a API fique indisponivel ou retorne um formato invalido, a aplicacao exibe uma mensagem de erro na interface.
