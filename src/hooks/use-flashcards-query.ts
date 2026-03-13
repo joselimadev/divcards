@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
-const FLASHCARDS_URL = "https://fiap-bff-2502.onrender.com/ask";
+const FLASHCARDS_API_URL =
+  import.meta.env.VITE_FLASHCARDS_API_URL ?? "http://localhost:8787";
 
 export type Flashcard = {
   word: string;
   description: string;
   useCase: string;
+};
+
+type FlashcardsApiResponse = {
+  cards?: unknown;
 };
 
 function isFlashcard(value: unknown): value is Flashcard {
@@ -23,22 +28,33 @@ function isFlashcard(value: unknown): value is Flashcard {
 }
 
 function normalizeFlashcards(payload: unknown): Flashcard[] {
-  if (Array.isArray(payload)) {
-    return payload.filter(isFlashcard);
+  if (!payload || typeof payload !== "object") {
+    return [];
   }
 
-  if (isFlashcard(payload)) {
-    return [payload];
+  const response = payload as FlashcardsApiResponse;
+
+  if (!Array.isArray(response.cards)) {
+    return [];
   }
 
-  return [];
+  return response.cards.filter(isFlashcard);
 }
 
-async function fetchFlashcards() {
-  const response = await fetch(FLASHCARDS_URL);
+async function fetchFlashcards(theme: string) {
+  const params = new URLSearchParams({
+    theme,
+  });
+  const response = await fetch(
+    `${FLASHCARDS_API_URL}/api/flashcards?${params.toString()}`,
+  );
 
   if (!response.ok) {
-    throw new Error("Nao foi possivel buscar os flashcards na API.");
+    const payload = (await response.json().catch(() => null)) as
+      | { error?: string }
+      | null;
+
+    throw new Error(payload?.error || "Nao foi possivel buscar os flashcards.");
   }
 
   const payload = (await response.json()) as unknown;
@@ -51,10 +67,10 @@ async function fetchFlashcards() {
   return cards;
 }
 
-export function useFlashcardsQuery() {
+export function useFlashcardsQuery(theme: string) {
   return useQuery({
-    queryKey: ["flashcards"],
-    queryFn: fetchFlashcards,
+    queryKey: ["flashcards", theme],
+    queryFn: () => fetchFlashcards(theme),
     staleTime: 1000 * 60 * 5,
   });
 }

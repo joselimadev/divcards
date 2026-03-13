@@ -6,8 +6,22 @@ function getWrappedIndex(index: number, size: number) {
   return (index + size) % size;
 }
 
+const KNOWN_THEMES = [
+  { label: "Technology", value: "technology" },
+  { label: "Business", value: "business" },
+  { label: "Travel", value: "travel" },
+  { label: "Health", value: "health" },
+  { label: "Education", value: "education" },
+  { label: "Food", value: "food" },
+  { label: "Sports", value: "sports" },
+  { label: "Movies", value: "movies" },
+  { label: "Music", value: "music" },
+  { label: "Work", value: "work" },
+];
+
 function App() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [theme, setTheme] = useState(KNOWN_THEMES[0].value);
   const {
     data: flashcards = [],
     error,
@@ -15,7 +29,7 @@ function App() {
     isFetching,
     isLoading,
     refetch,
-  } = useFlashcardsQuery();
+  } = useFlashcardsQuery(theme);
 
   const normalizedActiveIndex =
     flashcards.length > 0 ? getWrappedIndex(activeIndex, flashcards.length) : 0;
@@ -54,7 +68,7 @@ function App() {
             Aprenda Melhor,{" "}
             <span className="text-violet-400">Memorize por Mais Tempo</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">
             Crie e estude flashcards sem esforço. Junte-se a estudantes de todo
             o mundo que utilizam o nosso sistema de repetição espaçada
             cientificamente comprovado para passar nos exames e aprender
@@ -105,7 +119,7 @@ function App() {
                     <article
                       key={card.word}
                       aria-hidden={!motion.isActive}
-                      className="absolute inset-x-0 top-0 mx-auto h-112 w-full max-w-md origin-bottom-left rounded-4xl border border-white/12 bg-slate-900/85 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.45)] ring-1 ring-white/6 backdrop-blur-xl transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform sm:p-7"
+                      className="absolute inset-x-0 top-0 mx-auto h-full w-full max-w-md origin-bottom-left rounded-4xl border border-white/12 bg-slate-900/85 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.45)] ring-1 ring-white/6 backdrop-blur-xl transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform sm:p-7"
                       style={{
                         zIndex: motion.zIndex,
                         opacity: motion.opacity,
@@ -162,22 +176,35 @@ function App() {
                 })}
             </div>
             <div className="flex items-center justify-between rounded-full border border-white/10 bg-white/5 px-6 py-3 backdrop-blur-md">
-              <div>
-                <p className="text-xs font-semibold tracking-[0.35em] text-sky-200 uppercase">
-                  Deck Preview
-                </p>
-                <p className="mt-1 text-sm text-slate-300">
-                  {isCardsLoading
-                    ? "Atualizando deck..."
-                    : "Navegue pelos cartões."}
-                </p>
+              <div className="flex items-center gap-2">
+                <label className="sr-only" htmlFor="theme-select">
+                  Selecione um tema
+                </label>
+                <div className="relative">
+                  <select
+                    className="h-11 rounded-full border border-white/15 bg-slate-900/80 px-4  text-sm text-white outline-none transition hover:border-cyan-300/60 appearance-none cursor-pointer"
+                    disabled={isFetching}
+                    onChange={(event) => {
+                      setActiveIndex(0);
+                      setTheme(event.target.value);
+                    }}
+                    value={theme}
+                  >
+                    {KNOWN_THEMES.map((knownTheme) => {
+                      return (
+                        <option key={knownTheme.value} value={knownTheme.value}>
+                          {knownTheme.label}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </div>
-
               <div className="flex items-center gap-2">
                 <button
-                  aria-label="Proxima carta"
+                  aria-label="Atualizar tema"
                   className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-slate-900/80 text-lg text-white transition hover:-translate-y-0.5 hover:border-cyan-300/60 hover:bg-slate-800"
-                  disabled={flashcards.length < 2 || isFetching}
+                  disabled={isFetching}
                   onClick={() => {
                     void refetch();
                   }}
